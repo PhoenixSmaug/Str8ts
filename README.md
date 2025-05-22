@@ -51,7 +51,7 @@ Now we encode rule 2':
 
 (C) Compartment constraints are satisfied
 
-For all compartments $C_m = \{(i_{m_1}, j_{m_1}), \ldots, (i_{m_t}, j_{m_t})\}$ we add:
+For all compartments $C_m = \\{(i_{m_1}, j_{m_1}), \ldots, (i_{m_t}, j_{m_t})\\}$ we add:
 ```math
 \forall (i, j), (i^{\prime}, j^{\prime}) \in C_m \text{ with } (i, j) \neq (i^{\prime}, j^{\prime}): \forall n \in \{1, \ldots, 9\} : \bigwedge_{n^\prime = n + t}^{9} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j^{\prime}, n^{\prime}}
 ```
@@ -68,6 +68,8 @@ Then finally we ensure that the already placed numbers are accepted:
 
 ## Code
 
-[ToDo: Add description]
+Str8ts puzzles are inputed as a 81 character string, mapping the 81 cells starting from the top left corner to the bottom right corner. A white cell with number $n$ is simply denoted as "n", if it is empty we denote it with ".". Black cells with number $n$ are denoted as the $n$-th letter in the alphabet, so $4$ would be encoded as "d" and empty black cells are denoted with "#". In `main.jl` we give the string representation for a diabolic Str8ts puzzle as an example.
+
+The user can use `solveSAT!(s::Str8ts)`, to encode the given Str8ts puzzle into pure SAT like described in the previous section and solve it with the [PicoSAT](https://fmv.jku.at/picosat/) SAT solver. Alternatively we provide `solveSimple!(s::Str8ts)`, which is a 70 line backtracking solver again using rule 2'. While in general the more complicated SAT approach is far faster, both algorithms solve even diabolic Str8ts in a few millseconds as demonstrated in `main.jl`.
 
 (c) Mia Müßig
