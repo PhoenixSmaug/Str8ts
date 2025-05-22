@@ -33,13 +33,31 @@ In the standard encoding of a Sudoku puzzle into SAT we have variables $x_{i, j,
 
 (B) Each number appears at most once per column/row
 ```math
-\forall n \in \{1, \ldots, 9\} : \forall i \in \{1, \ldots, 9\} : \bigwedge_{j, j^{\prime} \in \{1, \ldots, 9\}} \overline{x}_{i, j, n} \lor \overline{x}_{i, j^{\prime}, n}
+\forall n \in \{1, \ldots, 9\} : \forall i \in \{1, \ldots, 9\} : \bigwedge_{j, j^{\prime} \in \{1, \ldots, 9\}, j \neq j^{\prime}} \overline{x}_{i, j, n} \lor \overline{x}_{i, j^{\prime}, n}
 ```
 ```math
-\forall n \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \bigwedge_{i, i^{\prime} \in \{1, \ldots, 9\}} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j, n}
+\forall n \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \bigwedge_{i, i^{\prime} \in \{1, \ldots, 9\}, i \neq i^{\prime}} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j, n}
 ```
 
-[ToDo: Add rule 2 encoding]
+The big challenge is the encoding of rule 2, as the requirement for consecutive numbers in arbitrary order is very hard to translate into pure boolean logic. We will side-step this problem by introducing the alternative rule 2', proving the equivalence to rule 2 and then encode the former into SAT.
+
+2'. If a compartment of length $t$ contains the number $n$, it contains no numbers $\geq n + t$ and $\leq n - t$.
+
+Proof that rule 2 implies 2': If a compartment contains $t$ consecutive numbers, all difference between any two entries is at most $t - 1$. Thus it can't contain $n$ and another entry $\geq n + t$ or $\leq n - t$ and so rule 2' is satisfied.
+
+Proof that rule 2' implies 2: We choose $n$ as the smallest number contained in the compartment, meaning all other entries are larger than $n$. Since they the entries follow rule 2', we know that the remaining numbers $\{m_1, m_2, \ldots, m_{t - 1}\}$ all fulfill $n < m_i < n + t$. But there are only $t - 1$ integers $> n$ and $< n + t$, and by rule 1 all entries are pairwise distinct. This means that the remaining numbers must be exactly those integers and so form a consecutive sequence with $n$, fulfilling rule 2.
+
+Now we encode rule 2':
+
+(C) Compartment constraints are satisfied
+
+For all compartments $C_m = \{(i_{m_1}, j_{m_1}), \ldots, (i_{m_t}, j_{m_t})\}$ we add:
+```math
+\forall (i, j), (i^{\prime}, j^{\prime}) \in C_m \text{ with } (i, j) \neq (i^{\prime}, j^{\prime}): \forall n \in \{1, \ldots, 9\} : \bigwedge_{n^\prime = n + t}^{9} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j^{\prime}, n^{\prime}}
+```
+```math
+\forall (i, j), (i^{\prime}, j^{\prime}) \in C_m \text{ with } (i, j) \neq (i^{\prime}, j^{\prime}): \forall n \in \{1, \ldots, 9\} : \bigwedge_{n^\prime = 1}^{n - t} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j^{\prime}, n^{\prime}}
+```
 
 Then finally we ensure that the already placed numbers are accepted:
 
