@@ -22,7 +22,7 @@ To summarize, Str8ts is a Sudoku modification where some cells are black and do 
 
 Str8ts generalized on an $n \times n$ board is an NP-complete problem by the following argument: For a given solution, we can verify that the three rules hold in polynomial time, so the problem is in NP. And the special case that a Str8ts puzzle contains no black cells is equivalent to a simple Latin square, where we fill each cell so that each number appears exactly once in each row and column. As proven in [“The complexity of completing partial Latin squares”](https://doi.org/10.1016/0166-218X(84)90075-1), solving a Latin square is an NP-complete problem and thus also the Str8ts problem.
 
-### Encoding
+### SAT Encoding
 
 In the standard encoding of a Sudoku puzzle into SAT we have variables $x_{i, j, n}$, which are true if and only if the cell in the $i$-th row and $j$-th column contains the number $n$. Copying this approach, the rules 1 and 3 can then encoded using the following constraints:
 
@@ -45,7 +45,7 @@ Then finally we ensure that the already placed numbers are accepted:
 
 (D) Respect hints
 ```math
-\forall i \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \begin{cases} x_{i, j, n} & \text{if cell } (i, j) \text{ starts with number} n, \\  & \text{otherwise.} \end{cases} 
+\forall i \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \begin{cases} x_{i, j, n} & \text{if cell } (i, j) \text{ starts with number } n, \\  & \text{otherwise.} \end{cases} 
 ```
 
 ## Code
