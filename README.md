@@ -28,15 +28,15 @@ In the standard encoding of a Sudoku puzzle into SAT we have variables $x_{i, j,
 
 (A) Each white cell has at least one number, an empty black cell does not have a number
 ```math
-\forall i \in \{1, \ldots 9\} : \forall j \in \{1, \ldots 9\} : \begin{cases} \bigvee_{n = 1}^9 x_{i, j, n} & \text{if cell } (i, j) \text{ is white}, \\ \bigwedge_{n = 1}^9 \overline{x}_{i, j, n} & \text{if cell } (i, j) \text{ is black and empty.} \end{cases} 
+\forall i \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \begin{cases} \bigvee_{n = 1}^9 x_{i, j, n} & \text{if cell } (i, j) \text{ is white}, \\ \bigwedge_{n = 1}^9 \overline{x}_{i, j, n} & \text{if cell } (i, j) \text{ is black and empty.} \end{cases} 
 ```
 
 (B) Each number appears at most once per column/row
 ```math
-\forall n \in \{1, \ldots 9\} : \forall i \in \{1, \ldots 9\} : \bigwedge_{j, j^{\prime} \in \{1, \ldots, 9\}} \overline{x}_{i, j, n} \lor \overline{x}_{i, j^{\prime}, n}
+\forall n \in \{1, \ldots, 9\} : \forall i \in \{1, \ldots, 9\} : \bigwedge_{j, j^{\prime} \in \{1, \ldots, 9\}} \overline{x}_{i, j, n} \lor \overline{x}_{i, j^{\prime}, n}
 ```
 ```math
-\forall n \in \{1, \ldots 9\} : \forall j \in \{1, \ldots 9\} : \bigwedge_{i, i^{\prime} \in \{1, \ldots, 9\}} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j, n}
+\forall n \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \bigwedge_{i, i^{\prime} \in \{1, \ldots, 9\}} \overline{x}_{i, j, n} \lor \overline{x}_{i^{\prime}, j, n}
 ```
 
 [ToDo: Add rule 2 encoding]
@@ -45,7 +45,7 @@ Then finally we ensure that the already placed numbers are accepted:
 
 (D) Respect hints
 ```math
-\forall i \in \{1, \ldots 9\} : \forall j \in \{1, \ldots 9\} : \begin{cases} x_{i, j, n} & \text{if cell } (i, j) \text{ starts with number} n, \\  & \text{otherwise.} \end{cases} 
+\forall i \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \begin{cases} x_{i, j, n} & \text{if cell } (i, j) \text{ starts with number} n, \\  & \text{otherwise.} \end{cases} 
 ```
 
 ## Code
