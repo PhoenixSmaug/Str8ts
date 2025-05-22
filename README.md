@@ -13,10 +13,10 @@ The only Str8ts puzzle included in this repository is ''Str8ts9x9 Very Hard PUZ.
 A Str8ts puzzle consists of a 9x9 board that must be filled according to the following rules:
 
 1. Each white cell must be filled with a number between 1 and 9, so that each number appears at most once in each row and column.
-2. Each compartment (a vertical or horizontal row of white cells that is not interrupted by black cells) must contain a consecutive sequence of numbers in any order. For example, $4,2,5,3$ would be a valid solution for a compartment with four cells, while $4,2,5,1$ would not be.
+2. Each compartment (a connected vertical or horizontal group of white cells) must contain a consecutive sequence of numbers in any order. For example, $4,2,5,3$ would be a valid solution for a compartment with four cells, while $4,2,5,1$ would not be.
 3. Black cells do not have to be filled with a number. If a black cell contains a number at the beginning, this number cannot appear in a white cell in the row or column.
 
-To summarize, Str8ts is a Sudoku modification where some cells are black and do not need to be filled and the block constraints are replaced by compartment constraints.
+To summarize, Str8ts is a Sudoku modification where some cells are black and do not need to be filled and the block constraints are replaced by compartment constraints. The [German Wikipedia page](https://de.wikipedia.org/wiki/Str8ts) gives two example puzzles and their solution, which can illustrate the initially somewhat confusing rules of Str8ts.
 
 ### NP-Completeness
 
