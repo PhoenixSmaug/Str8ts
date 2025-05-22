@@ -1,4 +1,4 @@
-# Str8ts Solver
+# Solving Str8ts puzzles with a SAT solver
 
 ## Legal Disclaimer
 
