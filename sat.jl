@@ -5,12 +5,12 @@ SAT based Str8ts Solver
 * Allows verification that a solution is unique
 """
 
-include("structs.jl")
+@isdefined(SimpleStr8ts) || include("structs.jl")
 
 using PicoSAT
 
 # solve Str8ts puzzle with SAT and return if solvable
-function solveSAT!(s::Str8ts)
+function solveSAT!(s::SimpleStr8ts)
     cnf, idToVar = encode(s)
     
     sol = PicoSAT.solve(cnf)
@@ -30,7 +30,7 @@ function solveSAT!(s::Str8ts)
 end
 
 # checks if a solution other than prevSol exists for the Str8ts puzzle
-function existsAnotherSol(s::Str8ts, prevSol::Vector{Int})
+function existsAnotherSol(s::SimpleStr8ts, prevSol::Vector{Int})
     cnf, idToVar = encode(s)
     push!(cnf, [-1 * i for i in prevSol])
     sol = PicoSAT.solve(cnf)
@@ -43,8 +43,18 @@ function existsAnotherSol(s::Str8ts, prevSol::Vector{Int})
 end
 
 
+function write_dimacs(filename::String, cnf::Vector{Vector{Int}}, num_vars::Int)
+    open(filename, "w") do io
+        println(io, "p cnf $num_vars $(length(cnf))")
+        for clause in cnf
+            println(io, join(clause, " "), " 0")
+        end
+    end
+end
+
+
 # encode Str8ts into a SAT problem
-function encode(s::Str8ts)
+function encode(s::SimpleStr8ts)
     # initialize variable v[x, y, n] which is true iff tile (x, y) contains number n
     varToId = Dict{Tuple{Int, Int, Int}, Int}()
     idToVar = Dict{Int, Tuple{Int, Int, Int}}()
