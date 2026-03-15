@@ -66,6 +66,35 @@ Then finally we ensure that the already placed numbers are accepted:
 \forall i \in \{1, \ldots, 9\} : \forall j \in \{1, \ldots, 9\} : \begin{cases} x_{i, j, n} & \text{if cell } (i, j) \text{ starts with number } n, \\  & \text{otherwise.} \end{cases} 
 ```
 
+## Human Solver
+
+In addition to the SAT and backtracking approaches, this project now also includes an extensive human-style Str8ts solver that systematically applies human-feasible deduction strategies in increasing difficulty instead of unrestricted search. The strategy catalogue is based on [this guide](https://www.slideshare.net/slideshow/str8ts-basic-and-advanced-strategies/8426761) by SlowThinker. The following strategies are implemented:
+
+- Core deduction
+	- Naked/hidden singles
+	- Sure candidates
+	- Stranded digits
+	- Split compartment
+	- Mind the gap
+	- Compartment range check
+
+- Set-based eliminations
+	- Naked sets (pairs, triples, quads, quintuples)
+	- Hidden sets (pairs, triples, quads, quintuples)
+
+- Structural interactions
+	- Locked compartments
+	- Sea-creature patterns (X-Wing, Swordfish, Jellyfish, Starfish)
+
+- Advanced consistency rules
+	- Setti's rule
+	- Setti considerations
+	- Combined Settis
+	- Unique solution constraint
+	- Y-Wing
+	- Binary contradiction guess (single level)
+
+It is easily able to solve all daily Str8ts puzzles (easy, medium, hard and diabolic) and can even solve roughly 80% of the weekly extreme puzzles I tried.
 ## Code
 
 Str8ts puzzles are inputed as a 81 character string, mapping the 81 cells starting from the top left corner to the bottom right corner. A white cell with number $n$ is simply denoted as "n", if it is empty we denote it with ".". Black cells with number $n$ are denoted as the $n$-th letter in the alphabet, so $4$ would be encoded as "d" and empty black cells are denoted with "#". In `main.jl` we give the string representation for a diabolic Str8ts puzzle as an example.

@@ -1,10 +1,12 @@
+include("structs.jl")
 include("backtrack.jl")
 include("sat.jl")
+include("human.jl")
 
 function trySimpleSolver()
     println("Diabolic Str8ts featured on Wikipedia")
     # https://de.wikipedia.org/wiki/Str8ts#/media/Datei:Str8ts9x9_Very_Hard_PUZ.png
-    s = Str8ts("##2..#9..
+    s = SimpleStr8ts("##2..#9..
                     #....h6.#
                     52..f...#
                     .........
@@ -22,7 +24,7 @@ end
 function trySATSolver()
     println("Diabolic Str8ts featured on Wikipedia")
     # https://de.wikipedia.org/wiki/Str8ts#/media/Datei:Str8ts9x9_Very_Hard_PUZ.png
-    s = Str8ts("##2..#9..
+    s = SimpleStr8ts("##2..#9..
                     #....h6.#
                     52..f...#
                     .........
@@ -37,6 +39,25 @@ function trySATSolver()
     println(s)
 end
 
+function tryHumanSolver()
+    println("Diabolic Str8ts featured on Wikipedia")
+    # https://de.wikipedia.org/wiki/Str8ts#/media/Datei:Str8ts9x9_Very_Hard_PUZ.png
+    s = Str8ts("##2..#9..
+                #....h6.#
+                52..f...#
+                .........
+                .#a5..##.
+                ........6
+                #...e..3.
+                h..i....#
+                ...#.2.d#")
+
+    print(s)
+    moves = @time solve(s, verbose=false)
+    println(s)
+    println("Hardest move hardness: $(puzzleHardness(moves))")
+end
+
 println("Using Backtracking Solver:")
 println("")
 trySimpleSolver()
@@ -44,6 +65,10 @@ println("")
 println("Using SAT Solver:")
 println("")
 trySATSolver()
+println("")
+println("Using Human Solver:")
+println("")
+tryHumanSolver()
 println("")
 
 # (c) Mia Muessig
