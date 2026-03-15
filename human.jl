@@ -2169,12 +2169,12 @@ end
 
 
 """
-    solve(s; verbose=true)
+    solveHuman!(s; verbose=true)
 
 Solve the Str8ts puzzle using human-like strategies in strict ascending hardness order.
 Returns a Vector{Int} of per-move hardness values (0-100 scale).
 """
-function solve(s::Str8ts; verbose=true)
+function solveHuman!(s::Str8ts; verbose=true)
     move_hardnesses = Int[]
 
     while !isDone(s) && isValid(s)
@@ -2208,7 +2208,7 @@ end
 """
     puzzleHardness(moves::Vector{Int})
 
-Summarise the move-hardness vector from solve() into a single puzzle difficulty
+Summarise the move-hardness vector from solveHuman!() into a single puzzle difficulty
 score: the maximum hardness of any individual move (0 for a trivially pre-solved
 puzzle, H_UNSOLVABLE if unsolvable).
 """
