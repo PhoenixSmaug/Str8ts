@@ -1,5 +1,7 @@
 # Combinatorial and Deduction Solvers for Str8ts puzzles
 
+I have now also developed a website allowing anyone to play the game: [phoenixsmaug.github.io/str8ts-web](https://phoenixsmaug.github.io/str8ts-web/)
+
 ## Legal Disclaimer
 
 This project is an independent solver for the puzzle game **Str8ts**, developed purely for educational and recreational purposes. **Str8ts** is a registered trademark of **Syndicated Puzzles Inc**. All rights to the name, branding, and associated intellectual property belong to them. The author of this project is **not affiliated, associated, authorized, endorsed by, or in any way officially connected with Syndicated Puzzles Inc.**, or any of its subsidiaries or affiliates.
